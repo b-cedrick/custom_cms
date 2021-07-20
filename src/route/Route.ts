@@ -11,9 +11,5 @@ class Route implements RouteInterface {
         this.url = url
         this.callback = callback
     } 
-
-    // public static add(method: String, url:String, callback:any) {   
-
-    // }
  }
  export default Route

@@ -1,4 +1,6 @@
 import * as http from "http";
+import { IncomingMessage, ServerResponse } from "http";
+import Router from "./route/Router";
 import Route from "./route/Router";
 require('dotenv').config();
 
@@ -35,13 +37,10 @@ require('dotenv').config();
      * executed on its instance.
      */
       
-    private requestListener = function (req: any, res:any) {
-        const routerInstance:Route = Route.getInstance()
-        routerInstance.route(req,res)
-    }  
-
     private startServer() {
-        let server = http.createServer(this.requestListener);
+        let server = http.createServer((req: IncomingMessage, res:ServerResponse)=>{
+            Router.checkRoute(req, res)
+        });
         server.listen(this.SERVER_PORT, this.SERVER_ADDRESS, () => {
         console.log(`🚀🚀Server is running on http://${this.SERVER_ADDRESS}:${this.SERVER_PORT}🚀🚀`);
         });

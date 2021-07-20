@@ -1,3 +1,5 @@
+
+import {IncomingMessage, ServerResponse} from "http";
 import { MethodsEnum } from "./MethodsEnum";
 import Route from "./Route";
 
@@ -16,7 +18,7 @@ class Router {
 
 
    public createRoute(method: String, url:String, callback:any){
-    this.routes.push(new Route(method, url, callback))
+     this.routes.push(new Route(method, url, callback))
    }
 
    public static get(url:String,callback:any){
@@ -33,6 +35,17 @@ class Router {
 
    public static delete(url:String,callback:any){
         this.getInstance().createRoute(MethodsEnum.Delete, url, callback)
+   }
+
+   public static checkRoute(req:IncomingMessage, res:ServerResponse) {
+       const METHOD = req.method
+       const URL = req.url
+       const selectedRoute:any = this.getInstance().routes.filter((route:any)=> (route.method == METHOD && route.url == URL))
+       if(selectedRoute && selectedRoute.length > 0) {
+          return selectedRoute.pop().callback(req,res)
+       } else {
+          return this.getInstance().routes.filter((route:any)=> (route.url == "/404")).pop().callback(req,res)
+       }
    }
    
 }
