@@ -54,10 +54,22 @@ var Server = /** @class */ (function () {
      * Finally, any Server should define some business logic, which can be
      * executed on its instance.
      */
+    Server.prototype.checkRoute = function (req, res) {
+        var _a;
+        var METHOD = req.method;
+        var URL = req.url;
+        var selectedRoute = Router_1.default.getAll().filter(function (route) { return (route.method === METHOD && route.url === URL); });
+        if (selectedRoute && selectedRoute.length > 0) {
+            return selectedRoute[0].callback(req, res);
+        }
+        else {
+            return (_a = Router_1.default.getAll().find(function (elem) { return elem.url === "/404"; })) === null || _a === void 0 ? void 0 : _a.callback(req, res);
+        }
+    };
     Server.prototype.startServer = function () {
         var _this = this;
         var server = http.createServer(function (req, res) {
-            Router_1.default.checkRoute(req, res);
+            _this.checkRoute(req, res);
         });
         server.listen(this.SERVER_PORT, this.SERVER_ADDRESS, function () {
             console.log("\uD83D\uDE80\uD83D\uDE80Server is running on http://" + _this.SERVER_ADDRESS + ":" + _this.SERVER_PORT + "\uD83D\uDE80\uD83D\uDE80");

@@ -30,16 +30,8 @@ var Router = /** @class */ (function () {
     Router.delete = function (url, callback) {
         this.getInstance().createRoute(MethodsEnum_1.MethodsEnum.Delete, url, callback);
     };
-    Router.checkRoute = function (req, res) {
-        var METHOD = req.method;
-        var URL = req.url;
-        var selectedRoute = this.getInstance().routes.filter(function (route) { return (route.method === METHOD && route.url === URL); });
-        if (selectedRoute && selectedRoute.length > 0) {
-            return selectedRoute.pop().callback();
-        }
-        else {
-            return this.getInstance().routes.filter(function (route) { return (route.url.includes('404')); }).pop().callback();
-        }
+    Router.getAll = function () {
+        return this.getInstance().routes;
     };
     return Router;
 }());

@@ -37,9 +37,20 @@ require('dotenv').config();
      * executed on its instance.
      */
       
+    private checkRoute(req:IncomingMessage, res:ServerResponse) {
+        const METHOD = req.method
+        const URL = req.url
+        const selectedRoute:any= Router.getAll().filter((route:any)=> (route.method === METHOD && route.url === URL))
+        if(selectedRoute && selectedRoute.length > 0) {
+           return selectedRoute[0].callback(req,res)
+        } else {
+           return Router.getAll().find(elem => elem.url === "/404")?.callback(req, res)
+        }
+    }
+
     private startServer() {
         let server = http.createServer((req: IncomingMessage, res:ServerResponse)=>{
-            Router.checkRoute(req, res)
+            this.checkRoute(req, res)
         });
         server.listen(this.SERVER_PORT, this.SERVER_ADDRESS, () => {
         console.log(`🚀🚀Server is running on http://${this.SERVER_ADDRESS}:${this.SERVER_PORT}🚀🚀`);

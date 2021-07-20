@@ -5,7 +5,7 @@ import Route from "./Route";
 
 class Router {    
    private static instance: Router;   
-   private routes: Array<any> = [];
+   public routes: Array<any> = [];
    
    private constructor() { }
    
@@ -15,7 +15,6 @@ class Router {
        }        
        return this.instance;
    }
-
 
    public createRoute(method: String, url:String, callback:any){
      this.routes.push(new Route(method, url, callback))
@@ -35,17 +34,10 @@ class Router {
 
    public static delete(url:String,callback:any){
         this.getInstance().createRoute(MethodsEnum.Delete, url, callback)
-   }
+   }  
 
-   public static checkRoute(req:IncomingMessage, res:ServerResponse) {
-       const METHOD = req.method
-       const URL = req.url
-       const selectedRoute:any = this.getInstance().routes.filter((route:any)=> (route.method == METHOD && route.url == URL))
-       if(selectedRoute && selectedRoute.length > 0) {
-          return selectedRoute.pop().callback(req,res)
-       } else {
-          return this.getInstance().routes.filter((route:any)=> (route.url == "/404")).pop().callback(req,res)
-       }
+   public static getAll():Route[]{
+        return this.getInstance().routes
    }
    
 }
