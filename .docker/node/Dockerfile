@@ -1,3 +1,3 @@
 FROM node:14-stretch
 WORKDIR /usr/src/app
-EXPOSE 8000
+# EXPOSE 8000

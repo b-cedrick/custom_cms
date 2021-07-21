@@ -24,6 +24,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var http = __importStar(require("http"));
 var Router_1 = __importDefault(require("./route/Router"));
+var Request_1 = __importDefault(require("./Server/Request"));
+var Response_1 = __importDefault(require("./Server/Response"));
 require('dotenv').config();
 /**
  * The Server class defines the `getInstance` method that lets clients access
@@ -60,15 +62,19 @@ var Server = /** @class */ (function () {
         var URL = req.url;
         var selectedRoute = Router_1.default.getAll().filter(function (route) { return (route.method === METHOD && route.url === URL); });
         if (selectedRoute && selectedRoute.length > 0) {
-            return selectedRoute[0].callback(req, res);
+            return res.end(selectedRoute[0].callback(req));
         }
         else {
-            return (_a = Router_1.default.getAll().find(function (elem) { return elem.url === "/404"; })) === null || _a === void 0 ? void 0 : _a.callback(req, res);
+            return res.end((_a = Router_1.default.getAll().find(function (elem) { return elem.url === "/404"; })) === null || _a === void 0 ? void 0 : _a.callback(req));
         }
     };
     Server.prototype.startServer = function () {
         var _this = this;
-        var server = http.createServer(function (req, res) {
+        var server = http.createServer(function (request, response) {
+            var req = new Request_1.default(request);
+            var res = new Response_1.default(response);
+            console.log("RESPONSE 0001:", response);
+            console.log("RESPONSE :", res);
             _this.checkRoute(req, res);
         });
         server.listen(this.SERVER_PORT, this.SERVER_ADDRESS, function () {

@@ -23,13 +23,15 @@ var ejs = __importStar(require("ejs"));
 var fs = __importStar(require("fs"));
 var path = __importStar(require("path"));
 var Viewer = /** @class */ (function () {
+    // private static 
     function Viewer() {
     }
     Viewer.display = function (filename, data) {
         if (data === void 0) { data = {}; }
-        var htmlContent = fs.readFileSync(path.join(__dirname, '..', '..', 'build', 'views', filename.toString()), 'utf8');
-        var htmlRenderized = ejs.render(htmlContent, { filename: filename, data: data });
-        return htmlRenderized;
+        return ejs.render(this.getFile(filename), { filename: filename, data: data });
+    };
+    Viewer.getFile = function (filename) {
+        return fs.readFileSync(path.join(__dirname, '..', '..', 'build', 'views', filename), 'utf8');
     };
     return Viewer;
 }());

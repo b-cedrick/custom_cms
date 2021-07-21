@@ -1,13 +1,28 @@
 import * as ejs from 'ejs';
 import * as fs from 'fs';
 import * as path from 'path';
+import Request from '../Server/Request';
 
 class Viewer{
-    constructor(){}
-    public static display(filename: String, data: any = {}) {
-        const htmlContent = fs.readFileSync(path.join(__dirname,'..','..', 'build','views',filename.toString()), 'utf8');        
-        const htmlRenderized = ejs.render(htmlContent, {filename, data});
-        return htmlRenderized
+    
+    public filename: string
+    public data:any
+    
+    constructor(filename:string, data:any){
+        this.filename = filename
+        this.data = data
+    }
+
+    public static make(filename:string, data:any) {
+        return new Viewer(filename, data)
+    }
+
+    public display() {       
+        return ejs.render(this.getFile(this.filename), {filename: this.filename, data: this.data});
+    }
+
+    private getFile(filename: string): any {
+        return fs.readFileSync(path.join(__dirname,'..','..', 'build','views',filename), 'utf8'); 
     }
 }
 
