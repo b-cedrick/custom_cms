@@ -1,5 +1,6 @@
 
 import {IncomingMessage} from "http";
+import Database from "../../database/Database";
 
 class ApiController {    
     private constructor() { }
@@ -7,8 +8,9 @@ class ApiController {
       return {nom: "Cédrick", email: "mail1@bidon.com"}
     }
 
-    public static getArticles = (req: IncomingMessage)=>{
-      return {title: "Mon premier articles"}
+    public static getArticles = async (req: IncomingMessage)=>{
+      const data:any = await Database.getArticle()
+      return data
     }
 }
 

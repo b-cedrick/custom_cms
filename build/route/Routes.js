@@ -3,19 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Router_1 = __importDefault(require("./Router"));
-var main_controller_1 = __importDefault(require("../controllers/web/main.controller"));
-var api_1 = __importDefault(require("../controllers/api"));
+var RouteApi_1 = __importDefault(require("./api/RouteApi"));
+var RoutesWeb_1 = __importDefault(require("./web/RoutesWeb"));
 var Routes = /** @class */ (function () {
     function Routes() {
     }
     Routes.make = function () {
         //Route web
-        Router_1.default.get('/', main_controller_1.default.showMainPage);
-        Router_1.default.get('/home', main_controller_1.default.showHomePage);
-        Router_1.default.get('/404', main_controller_1.default.show404Page);
+        new RoutesWeb_1.default();
         // Route api
-        Router_1.default.get('/api/', api_1.default.getUser);
+        new RouteApi_1.default();
     };
     return Routes;
 }());

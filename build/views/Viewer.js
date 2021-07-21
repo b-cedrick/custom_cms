@@ -23,14 +23,17 @@ var ejs = __importStar(require("ejs"));
 var fs = __importStar(require("fs"));
 var path = __importStar(require("path"));
 var Viewer = /** @class */ (function () {
-    // private static 
-    function Viewer() {
+    function Viewer(filename, data) {
+        this.filename = filename;
+        this.data = data;
     }
-    Viewer.display = function (filename, data) {
-        if (data === void 0) { data = {}; }
-        return ejs.render(this.getFile(filename), { filename: filename, data: data });
+    Viewer.make = function (filename, data) {
+        return new Viewer(filename, data);
     };
-    Viewer.getFile = function (filename) {
+    Viewer.prototype.display = function () {
+        return ejs.render(this.getFile(this.filename), { filename: this.filename, data: this.data });
+    };
+    Viewer.prototype.getFile = function (filename) {
         return fs.readFileSync(path.join(__dirname, '..', '..', 'build', 'views', filename), 'utf8');
     };
     return Viewer;

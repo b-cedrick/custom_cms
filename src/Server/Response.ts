@@ -8,13 +8,14 @@ class Response {
         this.res = res
     }        
 
-    responseHandler(data:any) {
-        if(data instanceof Viewer) {
-            this.res.writeHead(200,{"Content-Type": "text/html"})
+    async responseHandler(data:any) {
+        if(!Array.isArray(data) && data instanceof Viewer) {
+            this.res.writeHead(200,{"Content-Type": "text/html; charset=UTF-8"})
             return this.res.end(data.display())
         } else {
-            this.res.writeHead(200,{"Content-Type": "application/json"})
-            return this.res.end(JSON.stringify(data))
+            const d:any =  await Promise.resolve(data)
+            this.res.writeHead(200,{"Content-Type": "application/json; charset=UTF-8"})
+            return this.res.end(JSON.stringify(d))
         }        
     }
 }

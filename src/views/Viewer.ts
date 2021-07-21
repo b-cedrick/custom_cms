@@ -1,10 +1,8 @@
 import * as ejs from 'ejs';
 import * as fs from 'fs';
 import * as path from 'path';
-import Request from '../Server/Request';
-
 class Viewer{
-    
+
     public filename: string
     public data:any
     

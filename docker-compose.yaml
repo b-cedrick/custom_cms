@@ -1,33 +1,45 @@
-version: "3"
+version: "3.2"
+networks:
+  my_network:
+    driver: bridge
 
 services:
-  node:
-    build:
-      context: .docker/node
-    working_dir: /usr/src/app
-    command: npm run watch
-    links:
-      - mysql
-    volumes:
-      - ./:/usr/src/app
-    ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
-
-  mysql:
+  db:
     image: mysql:5.7
-    container_name: custom_cms_db
+    container_name: custom-cms-db
     restart: unless-stopped
     tty: true
     ports:
       - ${HOST_MACHINE_MYSQL_PORT}:3306
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - ${MYSQL_DATA_DIR-./.docker/db/data}:/var/lib/mysql
-      - ${MYSQL_LOG_DIR-./.docker/db/logs}:/var/log/mysql
-      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql
-      - ./scripts/data.sql:/docker-entrypoint-initdb.d/2.sql
+      - ${MYSQL_DATA_DIR-./.docker/db/data}:/var/lib/mysql:rw
+      - ${MYSQL_LOG_DIR-./.docker/db/logs}:/var/log/mysql:rw
+      - ./src/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - my_network 
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_HOST: ${DOCKER_MACHINE_MYSQL_ADDRESS}
+
+  node:
+    depends_on: 
+      - db
+    build:
+      context: .docker/node
+    working_dir: /usr/src/app
+    command: bash -c 'while !</dev/tcp/db/3306; do sleep 5; done; npm run watch'
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    networks:
+      - my_network 
+    environment:
+      MYSQL_HOST: custom-cms-db
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}

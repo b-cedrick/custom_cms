@@ -56,26 +56,25 @@ var Server = /** @class */ (function () {
      * Finally, any Server should define some business logic, which can be
      * executed on its instance.
      */
-    Server.prototype.checkRoute = function (req, res) {
+    Server.prototype.checkRoute = function (req) {
         var _a;
         var METHOD = req.method;
         var URL = req.url;
         var selectedRoute = Router_1.default.getAll().filter(function (route) { return (route.method === METHOD && route.url === URL); });
         if (selectedRoute && selectedRoute.length > 0) {
-            return res.end(selectedRoute[0].callback(req));
+            return selectedRoute[0].callback(req);
         }
         else {
-            return res.end((_a = Router_1.default.getAll().find(function (elem) { return elem.url === "/404"; })) === null || _a === void 0 ? void 0 : _a.callback(req));
+            return (_a = Router_1.default.getAll().find(function (elem) { return elem.url === "/404"; })) === null || _a === void 0 ? void 0 : _a.callback(req);
         }
     };
     Server.prototype.startServer = function () {
         var _this = this;
         var server = http.createServer(function (request, response) {
-            var req = new Request_1.default(request);
             var res = new Response_1.default(response);
-            console.log("RESPONSE 0001:", response);
-            console.log("RESPONSE :", res);
-            _this.checkRoute(req, res);
+            var req = new Request_1.default(request);
+            // console.log("SELECTED request : ",request) 
+            return res.responseHandler(_this.checkRoute(req));
         });
         server.listen(this.SERVER_PORT, this.SERVER_ADDRESS, function () {
             console.log("\uD83D\uDE80\uD83D\uDE80Server is running on http://" + _this.SERVER_ADDRESS + ":" + _this.SERVER_PORT + "\uD83D\uDE80\uD83D\uDE80");

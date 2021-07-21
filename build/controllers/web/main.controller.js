@@ -8,13 +8,13 @@ var MainController = /** @class */ (function () {
     function MainController() {
     }
     MainController.showMainPage = function (req) {
-        return Viewer_1.default.display('main.ejs', { title: 'Main Page' });
+        return Viewer_1.default.make('main.ejs', { title: 'Main Page' });
     };
     MainController.showHomePage = function (req) {
-        return Viewer_1.default.display('home.ejs', { title: 'Home Page!' });
+        return Viewer_1.default.make('home.ejs', { title: 'Home Page!' });
     };
     MainController.show404Page = function (req) {
-        return Viewer_1.default.display('page_404.ejs', { title: 'Page introuvable!' });
+        return Viewer_1.default.make('page_404.ejs', { title: 'Page introuvable!' });
     };
     return MainController;
 }());
