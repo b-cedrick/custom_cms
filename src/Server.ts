@@ -1,5 +1,6 @@
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
+const url = require('url');
 import Router from "./route/Router";
 import Request from "./Server/Request";
 import Response from "./Server/Response";
@@ -50,7 +51,7 @@ require('dotenv').config();
     }
 
     private startServer() {
-        let server = http.createServer((request: IncomingMessage, response: ServerResponse)=>{
+        let server = http.createServer((request: any, response: ServerResponse)=>{
             const res = new Response(response)
             const req = new Request(request)
             return res.responseHandler(this.checkRoute(req))

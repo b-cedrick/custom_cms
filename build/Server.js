@@ -23,6 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var http = __importStar(require("http"));
+var url = require('url');
 var Router_1 = __importDefault(require("./route/Router"));
 var Request_1 = __importDefault(require("./Server/Request"));
 var Response_1 = __importDefault(require("./Server/Response"));
@@ -60,6 +61,7 @@ var Server = /** @class */ (function () {
         var _a;
         var METHOD = req.method;
         var URL = req.url;
+        console.log("TESTTTTTTT : ", url.parse(req.url, true).query);
         var selectedRoute = Router_1.default.getAll().filter(function (route) { return (route.method === METHOD && route.url === URL); });
         if (selectedRoute && selectedRoute.length > 0) {
             return selectedRoute[0].callback(req);

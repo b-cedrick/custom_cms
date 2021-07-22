@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * Query
+ *
+ * This file is used to define all database dynamic query and use it in abstract model
+ * @module core/config/Query
+ * @author Daryl ABRADOR
+ */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,37 +46,74 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var articles_controller_1 = __importDefault(require("../../controllers/api/articles.controller"));
-var users_controller_1 = __importDefault(require("../../controllers/api/users.controller"));
-var Router_1 = __importDefault(require("../Router"));
-var RouteApi = /** @class */ (function () {
-    function RouteApi() {
-        var _this = this;
-        Router_1.default.get('/api/user', function () { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, users_controller_1.default.getUsers()];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        }); });
-        Router_1.default.get('/api/article', function (req) { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, articles_controller_1.default.getAllArticle()];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        }); });
-        Router_1.default.get('/api/article/test', function (req) { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, articles_controller_1.default.getArticle(2)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        }); });
+var Database_1 = __importDefault(require("./Database"));
+var Query = /** @class */ (function () {
+    function Query(table) {
+        this.table = table;
     }
-    return RouteApi;
+    Query.prototype.findAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var requestData, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, Database_1.default.query("SELECT * FROM " + this.table, [])];
+                    case 1:
+                        requestData = _a.sent();
+                        return [2 /*return*/, requestData];
+                    case 2:
+                        error_1 = _a.sent();
+                        console.log("Error in class query: findAll()");
+                        console.log(error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Query.prototype.findById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var requestData, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, Database_1.default.query("SELECT * FROM " + this.table + " where _id = ?", [id])];
+                    case 1:
+                        requestData = _a.sent();
+                        return [2 /*return*/, requestData[0]];
+                    case 2:
+                        error_2 = _a.sent();
+                        console.log("Error in class query: find()");
+                        console.log(error_2);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Query.prototype.find = function (fileds) {
+        return __awaiter(this, void 0, void 0, function () {
+            var requestData, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, Database_1.default.query("SELECT * FROM " + this.table + " where _id = ?", [fileds])];
+                    case 1:
+                        requestData = _a.sent();
+                        return [2 /*return*/, requestData];
+                    case 2:
+                        error_3 = _a.sent();
+                        console.log("Error in class query: find()");
+                        console.log(error_3);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return Query;
 }());
-exports.default = RouteApi;
+exports.default = Query;
