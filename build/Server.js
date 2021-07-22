@@ -73,7 +73,6 @@ var Server = /** @class */ (function () {
         var server = http.createServer(function (request, response) {
             var res = new Response_1.default(response);
             var req = new Request_1.default(request);
-            // console.log("SELECTED request : ",request) 
             return res.responseHandler(_this.checkRoute(req));
         });
         server.listen(this.SERVER_PORT, this.SERVER_ADDRESS, function () {

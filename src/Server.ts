@@ -53,7 +53,6 @@ require('dotenv').config();
         let server = http.createServer((request: IncomingMessage, response: ServerResponse)=>{
             const res = new Response(response)
             const req = new Request(request)
-            // console.log("SELECTED request : ",request) 
             return res.responseHandler(this.checkRoute(req))
         })
         server.listen(this.SERVER_PORT, this.SERVER_ADDRESS, () => {

@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Database_1 = __importDefault(require("../../database/Database"));
+var articles_controller_1 = __importDefault(require("./articles.controller"));
 var ApiController = /** @class */ (function () {
     function ApiController() {
     }
@@ -49,12 +49,8 @@ var ApiController = /** @class */ (function () {
     ApiController.getArticles = function (req) { return __awaiter(void 0, void 0, void 0, function () {
         var data;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, Database_1.default.getArticle()];
-                case 1:
-                    data = _a.sent();
-                    return [2 /*return*/, data];
-            }
+            data = articles_controller_1.default.getArticle();
+            return [2 /*return*/, data];
         });
     }); };
     return ApiController;

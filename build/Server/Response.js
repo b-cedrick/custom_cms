@@ -51,12 +51,12 @@ var Response = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!(!Array.isArray(data) && data instanceof Viewer_1.default)) return [3 /*break*/, 1];
-                        this.res.writeHead(200, { "Content-Type": "text/html" });
+                        this.res.writeHead(200, { "Content-Type": "text/html; charset=UTF-8" });
                         return [2 /*return*/, this.res.end(data.display())];
                     case 1: return [4 /*yield*/, Promise.resolve(data)];
                     case 2:
                         d = _a.sent();
-                        this.res.writeHead(200, { "Content-Type": "application/json" });
+                        this.res.writeHead(200, { "Content-Type": "application/json; charset=UTF-8" });
                         return [2 /*return*/, this.res.end(JSON.stringify(d))];
                 }
             });
