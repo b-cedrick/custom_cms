@@ -6,7 +6,10 @@ import Router from "../Router"
 class RouteApi {
     constructor() {
         Router.get('/api/user', async (req: Request)=>{
-            return await UsersController.getUsers(1)
+            return await UsersController.getUser(1)
+        })
+        Router.get('/api/user/all', async (req: Request)=>{
+            return await UsersController.getAll()
         })
         Router.get('/api/article', async (req: Request)=>{
             return await ArticlesController.getAllArticles()

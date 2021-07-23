@@ -1,4 +1,4 @@
 export enum TypeFields {
-    String="String",
-    Number="Number",
+    String="string",
+    Number="number",
 }

@@ -1,6 +1,4 @@
 import AbstractModel from "../models/AbstractModel";
-import Database from "./Database";
-
 class Query {
     private fields: Array<any> = [];
     private conditions: string = "";
@@ -17,34 +15,34 @@ class Query {
         return this;
     }
 
-    where(args:any){
-        args.map((arg: any) => {
-            const key:any = Object.keys(arg).pop()
-            if(key) {
-                this.conditions += " WHERE " + key + " = " + arg[key]
-            }        
-        })  
+    where(args:any){        
+        let conditions:string = ""
+        if((typeof args === 'object') && !Array.isArray(args)) {
+            conditions += " (" +this.and(args) + ")"
+        } else if(Array.isArray(args)){
+            args.map((arg: any, index:number) => {
+                if(arg && index === 0) conditions += " (" +this.and(arg) + ")" 
+                if(arg && index > 0) conditions += " OR "  +  " (" +this.and(arg) + ")"    
+            })  
+        }
+
+        if(conditions) this.conditions += " WHERE " + conditions
+
         return this;
     }
 
-    andWhere(args:any){
-        args.map((arg: any) => {
-            const key:any = Object.keys(arg).pop()
-            if(key) {
-                this.conditions += " AND " + key + " = " + arg[key]
-            }        
-        })  
-        return this;
-    }
-
-    orWhere(args:any){
-        args.map((arg: any) => {
-            const key:any = Object.keys(arg).pop()
-            if(key) {
-                this.conditions += " OR " + key + " = " + arg[key]
-            }        
-        })  
-        return this;
+    and(args:any){
+        let conditions:string = ""
+        const keys:any = Object.keys(args)
+        if(keys && keys.length > 1) {
+            keys.map((key: any, index:number) => {
+                if(key && index === 0) conditions += key + " = " + args[key]
+                if(key && index > 0) conditions += " AND "  + key + " = '" + args[key] + "'"
+            })
+        } else{
+            conditions += keys[0] + " = '" + args[keys[0]] + "'"
+        } 
+        return conditions;
     }
 
     from(table:any, alias:any = null){

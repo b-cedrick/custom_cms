@@ -9,8 +9,8 @@
 
 /** 2ème méthode **/
 export type RouteInterface = {
-   method: String,
-   url: String,
+   method: string,
+   url: string,
    callback: any
 }
 

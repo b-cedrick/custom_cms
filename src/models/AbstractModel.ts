@@ -19,20 +19,20 @@ abstract class AbstractModel{
         return await this.runQuery(queryString)
     }
 
-    public async find(data:any) {  
-        //TO FIX
-        const queryString:string = this.query.select(this.selection).from(this.table).where([{_id: 1}]).toString()
+    public async find(data:Array<Object> | Object) {  
+        const queryString:string = this.query.select(this.selection).from(this.table).where(data).toString()
+        console.log("QUERY STRING : ",queryString)
         return await this.runQuery(queryString)
     }
 
-    public async findById(id: Number) {   
+    public async findById(id: number) {   
         const queryString:string = this.query.select(this.selection).from(this.table).where([{_id: id}]).toString()
         const data:any = await this.runQuery(queryString)
         return Array.isArray(data) ? data[0] : data
     }
 
     private resetSelection(){
-        this.selection = ['*']
+        this.selection = []
     }
 
     public selectFields(data: Array<any>){

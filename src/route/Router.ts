@@ -16,23 +16,23 @@ class Router {
        return this.instance;
    }
 
-   public createRoute(method: String, url:String, callback:any){
+   public createRoute(method: string, url:string, callback:any){
      this.routes.push(new Route(method, url, callback))
    }
 
-   public static get(url:String,callback:any){
+   public static get(url:string,callback:any){
         this.getInstance().createRoute(MethodsEnum.Get, url, callback)
    }
 
-   public static post(url:String,callback:any){
+   public static post(url:string,callback:any){
         this.getInstance().createRoute(MethodsEnum.Post, url, callback)
    }
 
-   public static put(url:String,callback:any){
+   public static put(url:string,callback:any){
         this.getInstance().createRoute(MethodsEnum.Put, url, callback)
    }
 
-   public static delete(url:String,callback:any){
+   public static delete(url:string,callback:any){
         this.getInstance().createRoute(MethodsEnum.Delete, url, callback)
    }  
 
