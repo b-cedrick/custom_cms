@@ -2,10 +2,10 @@ import AbstractModel from "../models/AbstractModel";
 import Database from "./Database";
 
 class Query {
-    private fields: any = [];
+    private fields: Array<any> = [];
     private conditions: string = "";
     private table: string;
-    private fieldToSelect:any = []
+    private fieldToSelect:Array<any> = []
 
     constructor(model:AbstractModel){
         this.table = model.table
@@ -57,7 +57,8 @@ class Query {
     }
 
     toString(){
-        const query = 'SELECT '+ this.fieldToSelect.join(', ')
+        const liestFields:string = (this.fieldToSelect.length > 0) ? this.fieldToSelect.join(', ') : '*'
+        const query = 'SELECT '+ liestFields
                             + ' FROM ' + this.table
                             + this.conditions;
         this.fieldToSelect = []

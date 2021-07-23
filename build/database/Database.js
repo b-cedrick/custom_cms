@@ -35,11 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var Utils_1 = __importDefault(require("../utils/Utils"));
 var mysql = require('mysql2');
 require('dotenv').config();
 var Database = /** @class */ (function () {
@@ -58,16 +54,16 @@ var Database = /** @class */ (function () {
         }
         return this.instance;
     };
-    Database.query = function (query, params) {
-        if (params === void 0) { params = []; }
+    Database.query = function (query) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.getInstance().connect.promise()
-                            .query(query, params)
+                            .query(query)
                             .then(function (_a) {
                             var rows = _a[0], fields = _a[1];
-                            return rows ? Utils_1.default.sanitizeData(rows, fields) : [];
+                            //   return rows ? Utils.sanitizeData(rows,fields) : []
+                            return rows;
                         })
                             .catch(function (error) {
                             console.log("Error : ", error);

@@ -45,10 +45,10 @@ var Router_1 = __importDefault(require("../Router"));
 var RouteApi = /** @class */ (function () {
     function RouteApi() {
         var _this = this;
-        Router_1.default.get('/api/user', function () { return __awaiter(_this, void 0, void 0, function () {
+        Router_1.default.get('/api/user', function (req) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, users_controller_1.default.getUsers()];
+                    case 0: return [4 /*yield*/, users_controller_1.default.getUsers(1)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -64,7 +64,7 @@ var RouteApi = /** @class */ (function () {
         Router_1.default.get('/api/article/test', function (req) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, articles_controller_1.default.getArticle(2)];
+                    case 0: return [4 /*yield*/, articles_controller_1.default.getArticle(1)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

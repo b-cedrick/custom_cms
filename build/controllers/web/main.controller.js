@@ -57,10 +57,10 @@ var MainController = /** @class */ (function () {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, articles_models_1.article.findAll()];
+                case 0: return [4 /*yield*/, articles_models_1.article.findById(1)];
                 case 1:
                     data = _a.sent();
-                    return [2 /*return*/, Viewer_1.default.make('main.ejs', data[0])];
+                    return [2 /*return*/, Viewer_1.default.make('main.ejs', data)];
             }
         });
     }); };

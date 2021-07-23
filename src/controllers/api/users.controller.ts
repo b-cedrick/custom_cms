@@ -1,6 +1,4 @@
-import Database from "../../database/Database"
 import { user } from "../../models/user.model"
-// import Utils from "../../utils/Utils"
 
 class UsersController {
     public static async getUsers(id:number) {
