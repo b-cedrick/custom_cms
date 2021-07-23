@@ -49,15 +49,18 @@ var Response = /** @class */ (function () {
             var d;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        if (!(!Array.isArray(data) && data instanceof Viewer_1.default)) return [3 /*break*/, 1];
-                        this.res.writeHead(200, { "Content-Type": "text/html; charset=UTF-8" });
-                        return [2 /*return*/, this.res.end(data.display())];
-                    case 1: return [4 /*yield*/, Promise.resolve(data)];
-                    case 2:
+                    case 0: return [4 /*yield*/, Promise.resolve(data)];
+                    case 1:
                         d = _a.sent();
-                        this.res.writeHead(200, { "Content-Type": "application/json; charset=UTF-8" });
-                        return [2 /*return*/, this.res.end(JSON.stringify(d))];
+                        if (!Array.isArray(d) && d instanceof Viewer_1.default) {
+                            this.res.writeHead(200, { "Content-Type": "text/html; charset=UTF-8" });
+                            return [2 /*return*/, this.res.end(d.display())];
+                        }
+                        else {
+                            this.res.writeHead(200, { "Content-Type": "application/json; charset=UTF-8" });
+                            return [2 /*return*/, this.res.end(JSON.stringify(d))];
+                        }
+                        return [2 /*return*/];
                 }
             });
         });

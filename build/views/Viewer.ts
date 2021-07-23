@@ -15,7 +15,7 @@ class Viewer{
         return new Viewer(filename, data)
     }
 
-    public display() {       
+    public display() {    
         return ejs.render(this.getFile(this.filename), {filename: this.filename, data: this.data});
     }
 

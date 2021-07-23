@@ -2,11 +2,11 @@
 import {article} from "../../models/articles.models"
 
 class ArticlesController {
-    public static async getArticle(id:number) {  
+    public static getArticle(id:number) {  
        return article.findById(id)
     }
 
-    public static async getAllArticle() {  
+    public static getAllArticles() {  
         return article.findAll()
     }
 }

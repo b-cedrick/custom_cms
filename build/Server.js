@@ -61,7 +61,7 @@ var Server = /** @class */ (function () {
         var _a;
         var METHOD = req.method;
         var URL = req.url;
-        console.log("TESTTTTTTT : ", url.parse(req.url, true).query);
+        console.log("REQQQQQQQQQQQQQ :", req.data);
         var selectedRoute = Router_1.default.getAll().filter(function (route) { return (route.method === METHOD && route.url === URL); });
         if (selectedRoute && selectedRoute.length > 0) {
             return selectedRoute[0].callback(req);

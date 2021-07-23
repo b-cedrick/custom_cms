@@ -9,7 +9,7 @@ class RouteApi {
             return await UsersController.getUsers()
         })
         Router.get('/api/article', async (req: Request)=>{
-            return await ArticlesController.getAllArticle()
+            return await ArticlesController.getAllArticles()
         })
         Router.get('/api/article/test', async (req: Request)=>{
             return await ArticlesController.getArticle(2)

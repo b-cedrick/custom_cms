@@ -17,10 +17,14 @@ abstract class AbstractModel{
         return query.findAll();
     }
 
+    public find(fieldsToselect:any) {
+        const query = new Query(this.table); 
+        return query.find(fieldsToselect);
+    }
 
     public findById(id: Number) {
         const query = new Query(this.table); 
-        return query.find(id);
+        return query.findById(id);
     }
 }
 

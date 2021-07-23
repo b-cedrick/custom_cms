@@ -42,7 +42,9 @@ require('dotenv').config();
     private checkRoute(req: Request) {
         const METHOD = req.method
         const URL = req.url    
-        const selectedRoute:any= Router.getAll().filter((route:any)=> (route.method === METHOD && route.url === URL))                    
+        console.log("AAAAAAAAAAAAA :", URL)
+        console.log("REQQQQQQQQQQQQQ :", req.data)
+        const selectedRoute:any= Router.getAll().filter((route:any)=> (route.method === METHOD && route.url === URL))                
         if(selectedRoute && selectedRoute.length > 0) {
            return selectedRoute[0].callback(req)           
         } else {

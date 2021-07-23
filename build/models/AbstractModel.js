@@ -15,9 +15,13 @@ var AbstractModel = /** @class */ (function () {
         var query = new Query_1.default(this.table);
         return query.findAll();
     };
+    AbstractModel.prototype.find = function (fieldsToselect) {
+        var query = new Query_1.default(this.table);
+        return query.find(fieldsToselect);
+    };
     AbstractModel.prototype.findById = function (id) {
         var query = new Query_1.default(this.table);
-        return query.find(id);
+        return query.findById(id);
     };
     return AbstractModel;
 }());
