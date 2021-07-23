@@ -6,7 +6,7 @@ var Request = /** @class */ (function () {
         this.req = req;
         this.method = req.method;
         this.url = req.url;
-        this.data = url.parse(req.url, true);
+        this.data = url.parse(req.url).query;
     }
     return Request;
 }());

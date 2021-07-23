@@ -1,5 +1,5 @@
 INSERT 
-    INTO users (lasname, firstname, email, password) 
+    INTO users (lastname, firstname, email, password) 
     VALUES (
         "Dexter",
         "MORGAN",
@@ -8,7 +8,7 @@ INSERT
         );
 
 INSERT 
-    INTO users (lasname, firstname, email, password) 
+    INTO users (lastname, firstname, email, password) 
     VALUES (
         "Cédrick",
         "Michel",

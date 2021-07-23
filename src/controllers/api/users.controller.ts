@@ -1,10 +1,11 @@
 import Database from "../../database/Database"
+import { user } from "../../models/user.model"
+// import Utils from "../../utils/Utils"
 
 class UsersController {
-    public static getUsers() {
-        const query = 'SELECT * FROM `users` WHERE `_id` = ?'
-        const params = [1]
-       return Database.query(query, params)
+    public static async getUsers(id:number) {
+        const data: any =  await user.findById(id)
+        return data
     }
 }
 export default UsersController

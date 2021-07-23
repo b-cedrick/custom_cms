@@ -9,7 +9,7 @@ class Utils {
                 keys.map((key:string)=>{
                     item[key] = elem[key]
                 })
-                temp.push(item)
+                temp.push({...item})
             })
             return temp
         } else {

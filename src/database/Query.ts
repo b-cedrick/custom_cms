@@ -1,43 +1,70 @@
+import AbstractModel from "../models/AbstractModel";
 import Database from "./Database";
 
 class Query {
-    table: string;
+    private fields: any = [];
+    private conditions: string = "";
+    private table: string;
+    private fieldToSelect:any = []
 
-    constructor(table: string) {
-        this.table = table;
+    constructor(model:AbstractModel){
+        this.table = model.table
+        this.fields = model.fields
     }
 
-    async findAll() {
-        try {
-            const requestData = await Database.query(`SELECT * FROM ${this.table}`, [])
-            return requestData;
-        } catch (error) {
-            console.log("Error in class query: findAll()")
-            console.log(error);
+    select(args:any){
+        this.fieldToSelect = args;
+        return this;
+    }
+
+    where(args:any){
+        args.map((arg: any) => {
+            const key:any = Object.keys(arg).pop()
+            if(key) {
+                this.conditions += " WHERE " + key + " = " + arg[key]
+            }        
+        })  
+        return this;
+    }
+
+    andWhere(args:any){
+        args.map((arg: any) => {
+            const key:any = Object.keys(arg).pop()
+            if(key) {
+                this.conditions += " AND " + key + " = " + arg[key]
+            }        
+        })  
+        return this;
+    }
+
+    orWhere(args:any){
+        args.map((arg: any) => {
+            const key:any = Object.keys(arg).pop()
+            if(key) {
+                this.conditions += " OR " + key + " = " + arg[key]
+            }        
+        })  
+        return this;
+    }
+
+    from(table:any, alias:any = null){
+        if(!alias){
+            this.table = table;
+        }else{
+            this.table = `${table} AS ${alias}`;
         }
+        return this;
     }
 
-    async find(fileds:any) {
-        //TO FIX
-        try {
-            const requestData = await Database.query(`SELECT * FROM ${this.table} where _id = ?`, [fileds])
-            return requestData;
-        } catch (error) {
-            console.log("Error in class query: find()")
-            console.log(error);
-        }
+    toString(){
+        const query = 'SELECT '+ this.fieldToSelect.join(', ')
+                            + ' FROM ' + this.table
+                            + this.conditions;
+        this.fieldToSelect = []
+        this.table = ""
+        this.conditions = ""
+        return query          
     }
-
-    async findById(id: Number) {
-        try {
-            const requestData = await Database.query(`SELECT * FROM ${this.table} where _id = ?`, [id])
-            return requestData[0];
-        } catch (error) {
-            console.log("Error in class query: find()")
-            console.log(error);
-        }
-    }
-
 }
 
 export default Query;

@@ -9,19 +9,10 @@ var AbstractModel = /** @class */ (function () {
         this.fields = [];
         this.table = table;
         this.fields = fields;
-        this.query = new Query_1.default(table);
     }
     AbstractModel.prototype.findAll = function () {
-        var query = new Query_1.default(this.table);
-        return query.findAll();
-    };
-    AbstractModel.prototype.find = function (fieldsToselect) {
-        var query = new Query_1.default(this.table);
-        return query.find(fieldsToselect);
-    };
-    AbstractModel.prototype.findById = function (id) {
-        var query = new Query_1.default(this.table);
-        return query.findById(id);
+        var query = new Query_1.default(this.table, this.fields);
+        return query.select('*').from(this.table).toString();
     };
     return AbstractModel;
 }());

@@ -4,7 +4,7 @@ USE custom_cms;
 
 CREATE TABLE IF NOT EXISTS users (
     _id INT AUTO_INCREMENT PRIMARY KEY,
-    lasname VARCHAR(120) NOT NULL,
+    lastname VARCHAR(120) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
     email VARCHAR(40) NOT NULL,
     password VARCHAR(255) NOT NULL,

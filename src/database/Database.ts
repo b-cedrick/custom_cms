@@ -20,11 +20,12 @@ class Database {
         return this.instance
     } 
 
-    public static async query(query:string, params: any = []) {
+    public static async query(query:string) {
         return await this.getInstance().connect.promise()
-        .query(query,params)
+        .query(query)
         .then( ([rows,fields]:[any, any]) => {
-          return rows ? Utils.sanitizeData(rows,fields) : []
+        //   return rows ? Utils.sanitizeData(rows,fields) : []
+            return rows
         })
         .catch((error:any)=> {
             console.log("Error : ", error)
