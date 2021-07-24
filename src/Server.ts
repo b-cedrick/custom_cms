@@ -41,7 +41,6 @@ require('dotenv').config();
     private checkRoute(req: Request) {
         const METHOD = req.method
         const URL = req.url   
-        console.log("DATA : ", req.data) 
         const selectedRoute:any= Router.getAll().filter((route:any)=> (route.method === METHOD && route.url === URL))                
         if(selectedRoute && selectedRoute.length > 0) {
            return selectedRoute[0].callback(req)           
@@ -51,9 +50,9 @@ require('dotenv').config();
     }
 
     private startServer() {
-        let server = http.createServer((request: IncomingMessage, response: ServerResponse)=>{
-            const res = new Response(response)
-            const req = new Request(request)
+        let server = http.createServer(async (request: IncomingMessage, response: ServerResponse)=>{
+            const res = Response.instance(response)
+            const req = await Request.instance(request)
             return res.responseHandler(this.checkRoute(req))
         })
         server.listen(this.SERVER_PORT, this.SERVER_ADDRESS, () => {

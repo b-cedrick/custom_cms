@@ -60,6 +60,42 @@ var ArticlesController = /** @class */ (function () {
             });
         });
     };
+    ArticlesController.addArticle = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log({ success: true, message: "Ajout effectué avec succès" });
+                        return [4 /*yield*/, { success: true, message: "Ajout effectué avec succès" }];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ArticlesController.updateArticles = function (_id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log({ success: true, message: "Mise à jour effectué avec succès" });
+                        return [4 /*yield*/, { success: true, message: "Mise à jour effectué avec succès" }];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ArticlesController.deleteArticles = function (_id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log({ success: true, message: "Article supprimé avec succès" });
+                        return [4 /*yield*/, { success: true, message: "Article supprimé avec succès" }];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     return ArticlesController;
 }());
 exports.default = ArticlesController;

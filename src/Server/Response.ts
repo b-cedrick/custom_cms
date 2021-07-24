@@ -18,6 +18,10 @@ class Response {
             return this.res.end(JSON.stringify(d))
         }        
     }
+
+    public static instance(req: ServerResponse){
+        return new Response(req)
+    }
 }
 
 export default Response

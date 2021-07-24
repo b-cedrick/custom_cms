@@ -40,12 +40,25 @@ var user_model_1 = require("../../models/user.model");
 var UsersController = /** @class */ (function () {
     function UsersController() {
     }
-    UsersController.getUsers = function (id) {
+    UsersController.getAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, user_model_1.user.findById(id)];
+                    case 0: return [4 /*yield*/, user_model_1.user.findAll()];
+                    case 1:
+                        data = _a.sent();
+                        return [2 /*return*/, data];
+                }
+            });
+        });
+    };
+    UsersController.getUser = function (_id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, user_model_1.user.findById(_id)];
                     case 1:
                         data = _a.sent();
                         return [2 /*return*/, data];

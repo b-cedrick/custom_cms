@@ -20,8 +20,8 @@ abstract class AbstractModel{
     }
 
     public async find(data:Array<Object> | Object) {  
+        // To IMPROVE (force find() method to accept anything else than Array or Object)
         const queryString:string = this.query.select(this.selection).from(this.table).where(data).toString()
-        console.log("QUERY STRING : ",queryString)
         return await this.runQuery(queryString)
     }
 

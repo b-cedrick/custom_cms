@@ -73,7 +73,8 @@ var AbstractModel = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        queryString = this.query.select(this.selection).from(this.table).where([{ _id: 1 }]).toString();
+                        queryString = this.query.select(this.selection).from(this.table).where(data).toString();
+                        console.log("QUERY STRING : ", queryString);
                         return [4 /*yield*/, this.runQuery(queryString)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -96,7 +97,7 @@ var AbstractModel = /** @class */ (function () {
         });
     };
     AbstractModel.prototype.resetSelection = function () {
-        this.selection = ['*'];
+        this.selection = [];
     };
     AbstractModel.prototype.selectFields = function (data) {
         this.selection = data;

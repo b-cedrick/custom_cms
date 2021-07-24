@@ -27,6 +27,9 @@ var Router = /** @class */ (function () {
     Router.put = function (url, callback) {
         this.getInstance().createRoute(MethodsEnum_1.MethodsEnum.Put, url, callback);
     };
+    Router.patch = function (url, callback) {
+        this.getInstance().createRoute(MethodsEnum_1.MethodsEnum.Put, url, callback);
+    };
     Router.delete = function (url, callback) {
         this.getInstance().createRoute(MethodsEnum_1.MethodsEnum.Delete, url, callback);
     };

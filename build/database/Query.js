@@ -14,33 +14,37 @@ var Query = /** @class */ (function () {
     };
     Query.prototype.where = function (args) {
         var _this = this;
-        args.map(function (arg) {
-            var key = Object.keys(arg).pop();
-            if (key) {
-                _this.conditions += " WHERE " + key + " = " + arg[key];
-            }
-        });
+        var conditions = "";
+        if ((typeof args === 'object') && !Array.isArray(args)) {
+            conditions += " (" + this.and(args) + ")";
+        }
+        else if (Array.isArray(args)) {
+            args.map(function (arg, index) {
+                if (arg && index === 0)
+                    conditions += " (" + _this.and(arg) + ")";
+                if (arg && index > 0)
+                    conditions += " OR " + " (" + _this.and(arg) + ")";
+            });
+        }
+        if (conditions)
+            this.conditions += " WHERE " + conditions;
         return this;
     };
-    Query.prototype.andWhere = function (args) {
-        var _this = this;
-        args.map(function (arg) {
-            var key = Object.keys(arg).pop();
-            if (key) {
-                _this.conditions += " AND " + key + " = " + arg[key];
-            }
-        });
-        return this;
-    };
-    Query.prototype.orWhere = function (args) {
-        var _this = this;
-        args.map(function (arg) {
-            var key = Object.keys(arg).pop();
-            if (key) {
-                _this.conditions += " OR " + key + " = " + arg[key];
-            }
-        });
-        return this;
+    Query.prototype.and = function (args) {
+        var conditions = "";
+        var keys = Object.keys(args);
+        if (keys && keys.length > 1) {
+            keys.map(function (key, index) {
+                if (key && index === 0)
+                    conditions += key + " = " + args[key];
+                if (key && index > 0)
+                    conditions += " AND " + key + " = '" + args[key] + "'";
+            });
+        }
+        else {
+            conditions += keys[0] + " = '" + args[keys[0]] + "'";
+        }
+        return conditions;
     };
     Query.prototype.from = function (table, alias) {
         if (alias === void 0) { alias = null; }

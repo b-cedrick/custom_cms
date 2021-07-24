@@ -6,5 +6,6 @@ var MethodsEnum;
     MethodsEnum["Get"] = "GET";
     MethodsEnum["Post"] = "POST";
     MethodsEnum["Put"] = "PUT";
+    MethodsEnum["Patch"] = "PATCH";
     MethodsEnum["Delete"] = "DELETE";
 })(MethodsEnum = exports.MethodsEnum || (exports.MethodsEnum = {}));

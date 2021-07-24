@@ -45,10 +45,19 @@ var Router_1 = __importDefault(require("../Router"));
 var RouteApi = /** @class */ (function () {
     function RouteApi() {
         var _this = this;
+        /******************* GET **********************/
         Router_1.default.get('/api/user', function (req) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, users_controller_1.default.getUsers(1)];
+                    case 0: return [4 /*yield*/, users_controller_1.default.getUser(req.data)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        Router_1.default.get('/api/user/all', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, users_controller_1.default.getAll()];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -64,11 +73,52 @@ var RouteApi = /** @class */ (function () {
         Router_1.default.get('/api/article/test', function (req) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, articles_controller_1.default.getArticle(1)];
+                    case 0: return [4 /*yield*/, articles_controller_1.default.getArticle(req.data)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         }); });
+        /***********************************************/
+        /******************* POST **********************/
+        Router_1.default.post('/api/article', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, articles_controller_1.default.addArticle(req.data)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        /***********************************************/
+        /******************* PATCH **********************/
+        Router_1.default.patch('/api/article', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, articles_controller_1.default.updateArticles(req.data._id)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        /***********************************************/
+        /******************* PUT **********************/
+        Router_1.default.put('/api/article', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, articles_controller_1.default.deleteArticles(req.data._id)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        /***********************************************/
+        /******************* DELETE **********************/
+        Router_1.default.delete('/api/article/', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, articles_controller_1.default.getAllArticles()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        /***********************************************/
     }
     return RouteApi;
 }());

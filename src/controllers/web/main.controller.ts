@@ -18,7 +18,8 @@ class MainController {
     }
 
     public static showArticlePage = async (req: Request)=>{ 
-      const data:any = await article.findById(1)
+      console.log("REQ DATA : ", req.data)
+      const data:any = await article.findById(req.data._id)
       return Viewer.make('main.ejs', data)
     }
 }

@@ -32,6 +32,10 @@ class Router {
         this.getInstance().createRoute(MethodsEnum.Put, url, callback)
    }
 
+   public static patch(url:string,callback:any){
+     this.getInstance().createRoute(MethodsEnum.Put, url, callback)
+}
+
    public static delete(url:string,callback:any){
         this.getInstance().createRoute(MethodsEnum.Delete, url, callback)
    }  
