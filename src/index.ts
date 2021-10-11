@@ -1,4 +1,4 @@
-import Routes from "./route/Routes";
+import Routes from "./core/route/Routes";
 import Server from "./Server";
 
 Routes.make()

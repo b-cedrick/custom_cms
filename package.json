@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf ./build && tsc && cp -R src/views build",
-    "watch": "npm run build && nodemon build/index.js",
+    "build": "rimraf ./build && tsc && cp -R src/core/views build/core",
+    "watch": "npm run build && nodemon  --trace-warnings build/index.js",
     "start": "npm run build && node build/index.js",
     "start:dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"

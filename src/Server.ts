@@ -1,8 +1,8 @@
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
-import Router from "./route/Router";
-import Request from "./Server/Request";
-import Response from "./Server/Response";
+import Router from "./core/route/Router";
+import Request from "./core/Server/Request";
+import Response from "./core/Server/Response";
 require('dotenv').config();
 
 /**
