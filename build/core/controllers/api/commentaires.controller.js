@@ -44,7 +44,7 @@ var CommentairesController = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, commentaires_model_1.commentaire.selectFields(['_id', 'user_id', 'content']).findById(id)];
+                    case 0: return [4 /*yield*/, commentaires_model_1.commentaire.selectFields(['_id', 'user_id', 'article_id', 'content']).findById(id)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

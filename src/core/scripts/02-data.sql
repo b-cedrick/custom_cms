@@ -41,7 +41,7 @@ INSERT
         );
 
 INSERT 
-    INTO commentaires (user_id, article_id, pubication_date, content) 
+    INTO commentaires (user_id, article_id, pubication_date, comment) 
     VALUES (
         1,
         2,
@@ -50,7 +50,7 @@ INSERT
         );
 
 INSERT 
-    INTO commentaires (user_id, article_id, pubication_date, content) 
+    INTO commentaires (user_id, article_id, pubication_date, comment) 
     VALUES (
         1,
         1,

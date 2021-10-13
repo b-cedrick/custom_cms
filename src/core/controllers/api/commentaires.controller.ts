@@ -2,12 +2,16 @@
 import {commentaire} from "../../models/commentaires.model"
 
 class CommentairesController {
-    public static async getCommentaire(id:number) { 
-        return await commentaire.selectFields(['_id','user_id','article_id','content']).findById(id)
+    public static async getCommentaireById(id:number) { 
+        return await commentaire.innerJoin({table: "articles", field: "article_id"}).innerJoin({table: "users", field: "user_id"}).findById(id)
+    }
+
+    public static async getCommentaire(data: any) { 
+        return await commentaire.innerJoin({table: "articles", field: "article_id"}).innerJoin({table: "users", field: "user_id"}).find(data)
     }
 
     public static async getAllCommentaires() {  
-        return await commentaire.findAll()
+        return await commentaire.innerJoin({table: "articles", field: "article_id"}).innerJoin({table: "users", field: "user_id"}).findAll()
     }
 
     public static async addCommentaire(data:any) {  

@@ -7,6 +7,7 @@ abstract class AbstractModel{
     fields: Array<Field> = [];
     query: Query;
     selection: any = []
+    join: any = []
 
     constructor(table: string, fields: Array<Field>) {
         this.table   = table;
@@ -15,18 +16,18 @@ abstract class AbstractModel{
     }
 
     public async findAll() {
-        const queryString:string = this.query.select(this.selection).from(this.table).toString()
+        const queryString:string = this.query.join(this.join).select(this.selection).from(this.table).toString()
         return await this.runQuery(queryString)
     }
 
     public async find(data:Array<Object> | Object) {  
         // To IMPROVE (force find() method to accept anything else than Array or Object)
-        const queryString:string = this.query.select(this.selection).from(this.table).where(data).toString()
+        const queryString:string = this.query.join(this.join).select(this.selection).from(this.table).where(data).toString()
         return await this.runQuery(queryString)
     }
 
     public async findById(id: number) {   
-        const queryString:string = this.query.select(this.selection).from(this.table).where([{_id: id}]).toString()
+        const queryString:string = this.query.join(this.join).select(this.selection).from(this.table).where([{_id: id}]).toString()
         const data:any = await this.runQuery(queryString)
         return Array.isArray(data) ? data[0] : data
     }
@@ -55,6 +56,21 @@ abstract class AbstractModel{
         return this
     }
 
+    public innerJoin(data: any){
+        this.join.push(Object.assign(data, {inner: true, left: false, right: false}))
+        return this
+    }
+
+    public leftJoin(data: any){
+        this.join.push(Object.assign(data, {inner: false, left: true, right: false}))
+        return this
+    }
+
+    public rightJoin(data: any){
+        this.join.push(Object.assign(data, {inner: false, left: false, right: true}))
+        return this
+    }
+
     public excludeFields(data: Array<any>){
         let temp:any = []
         this.fields.map((item:any)=> {
@@ -68,6 +84,7 @@ abstract class AbstractModel{
     }
 
     private async runQuery(queryString: string) {
+        this.join = []
         try {
             this.resetSelection()
             const data:any = await Database.query(queryString)

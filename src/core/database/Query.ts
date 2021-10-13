@@ -1,6 +1,7 @@
 import AbstractModel from "../models/AbstractModel";
 class Query {
     private fields: Array<any> = [];
+    private _join: string = "";
     private conditions: string = "";
     private action: string = "";
     private isDelete: boolean = false;
@@ -78,11 +79,11 @@ class Query {
         const keys:any = Object.keys(args)
         if(keys && keys.length > 1) {
             keys.map((key: any, index:number) => {
-                if(key && index === 0) conditions += key + " = " + args[key]
-                if(key && index > 0) conditions += " AND "  + key + " = '" + args[key] + "'"
+                if(key && index === 0) conditions += this.table + "." + key + " = " + args[key]
+                if(key && index > 0) conditions += " AND "  + this.table + "." + key + " = '" + args[key] + "'"
             })
         } else{
-            conditions += keys[0] + " = '" + args[keys[0]] + "'"
+            conditions += this.table + "." + keys[0] + " = '" + args[keys[0]] + "'"
         } 
         return conditions;
     }
@@ -96,15 +97,30 @@ class Query {
         return this;
     }
 
+    join(data:any){
+        data.map( (item: any) => {
+            if(item.inner) {
+                this._join += ` INNER JOIN ${item.table} ON ${item.table}._id = ${this.table}.${item.field} `;
+            } else if(item.left) {
+                this._join += ` LEFT JOIN ${item.table} ON ${item.table}._id = ${this.table}.${item.field} `;
+            } else if(item.right) {
+                this._join += ` RIGHT JOIN ${item.table} ON ${item.table}._id = ${this.table}.${item.field} `;
+            }     
+        })
+        return this;
+    }
+
     toString(){
         const liestFields:string = this.isDelete ? '' : ((this.fieldToSelect.length > 0) ? this.fieldToSelect.join(', ') : '*')
         const query = this.action + liestFields
                             + ' FROM ' + this.table
+                            + this._join
                             + this.conditions;
         this.fieldToSelect = []
-        this.table = ""
+        // this.table = ""
         this.action = ""
         this.isDelete = false
+        this._join = ""
         this.conditions = ""
         return query          
     }

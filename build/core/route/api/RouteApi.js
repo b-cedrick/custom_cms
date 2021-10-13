@@ -40,10 +40,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var articles_controller_1 = __importDefault(require("../../controllers/api/articles.controller"));
+var commentaires_controller_1 = __importDefault(require("../../controllers/api/commentaires.controller"));
 var users_controller_1 = __importDefault(require("../../controllers/api/users.controller"));
 var Router_1 = __importDefault(require("../Router"));
 var RouteApi = /** @class */ (function () {
     function RouteApi() {
+        /***************** User *******************/
         var _this = this;
         /******************* GET **********************/
         Router_1.default.get('/api/user', function (req) { return __awaiter(_this, void 0, void 0, function () {
@@ -62,6 +64,10 @@ var RouteApi = /** @class */ (function () {
                 }
             });
         }); });
+        /***********************************************/
+        /***********************************************/
+        /***************** Articles *******************/
+        /******************* GET **********************/
         Router_1.default.get('/api/article/all', function (req) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -121,6 +127,70 @@ var RouteApi = /** @class */ (function () {
                 }
             });
         }); });
+        /***********************************************/
+        /***********************************************/
+        /***************** Commentaires *******************/
+        /******************* GET **********************/
+        Router_1.default.get('/api/commentaire/all', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, commentaires_controller_1.default.getAllCommentaires()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        Router_1.default.get('/api/commentaire/test', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, commentaires_controller_1.default.getCommentaire(req.data)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        Router_1.default.get('/api/commentaire', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, commentaires_controller_1.default.getCommentaire(req.data._id)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        /***********************************************/
+        /******************* POST **********************/
+        Router_1.default.post('/api/commentaire/add', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, commentaires_controller_1.default.addCommentaire(req.data)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        /***********************************************/
+        /******************* PATCH **********************/
+        // Router.patch('/api/commentaire', async (req: Request)=>{
+        //     return await CommentairesController.updateCommentaires(req.data._id)
+        // })
+        /***********************************************/
+        /******************* PUT **********************/
+        Router_1.default.put('/api/commentaire/update', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, commentaires_controller_1.default.updateCommentaires(req.data)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        /***********************************************/
+        /******************* DELETE **********************/
+        Router_1.default.delete('/api/commentaire/delete', function (req) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, commentaires_controller_1.default.deleteCommentaires(req.data)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); });
+        /***********************************************/
         /***********************************************/
     }
     return RouteApi;

@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS commentaires (
     article_id INT NOT NULL,
     user_id INT NOT NULL,
     pubication_date DATE,
-    content TEXT,
+    comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(_id),

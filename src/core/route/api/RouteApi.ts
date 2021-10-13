@@ -67,8 +67,9 @@ class RouteApi {
         Router.get('/api/commentaire/test', async (req: Request)=>{
             return await CommentairesController.getCommentaire(req.data)
         })
+        
         Router.get('/api/commentaire', async (req: Request)=>{
-            return await CommentairesController.getCommentaire(req.data._id)
+            return await CommentairesController.getCommentaire(req.data)
         })
         /***********************************************/
 

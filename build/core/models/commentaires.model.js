@@ -33,5 +33,6 @@ var Commentaire = /** @class */ (function (_super) {
 exports.commentaire = new Commentaire('commentaires', [
     { field: '_id', type: FieldsType_1.TypeFields.Number },
     { field: 'user_id', type: FieldsType_1.TypeFields.Number },
+    { field: 'article_id', type: FieldsType_1.TypeFields.Number },
     { field: 'content', type: FieldsType_1.TypeFields.String }
 ]);
