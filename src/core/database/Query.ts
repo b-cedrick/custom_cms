@@ -46,7 +46,6 @@ class Query {
         }
         query_part = query_part.replace(/.$/,"");
         const query = "UPDATE " + this.table + " SET" + query_part + this.conditions
-        console.log("query : ",query)
         this.table = ""
         this.conditions = ""
         return query
@@ -117,7 +116,6 @@ class Query {
                             + this._join
                             + this.conditions;
         this.fieldToSelect = []
-        // this.table = ""
         this.action = ""
         this.isDelete = false
         this._join = ""

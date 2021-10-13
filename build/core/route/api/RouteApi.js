@@ -150,7 +150,7 @@ var RouteApi = /** @class */ (function () {
         Router_1.default.get('/api/commentaire', function (req) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, commentaires_controller_1.default.getCommentaire(req.data._id)];
+                    case 0: return [4 /*yield*/, commentaires_controller_1.default.getCommentaire(req.data)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

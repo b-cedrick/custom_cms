@@ -32,6 +32,7 @@ var Articles = /** @class */ (function (_super) {
 }(AbstractModel_1.default));
 exports.article = new Articles('articles', [
     { field: '_id', type: FieldsType_1.TypeFields.Number },
+    { field: 'user_id', type: FieldsType_1.TypeFields.Number },
     { field: 'title', type: FieldsType_1.TypeFields.String },
     { field: 'content', type: FieldsType_1.TypeFields.String }
 ]);

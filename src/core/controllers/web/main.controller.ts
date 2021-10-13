@@ -5,11 +5,12 @@ import Viewer from "../../views/Viewer";
 class MainController {    
     private constructor() { }
 
-    public static showMainPage = (req: Request)=>{   
-      return Viewer.make('main.ejs', {title:'Main Page'})
+    public static showMainPage = async (req: Request)=>{   
+      const data = await article.findAll()
+      return Viewer.make('main.ejs', data)
     }
 
-    public static showHomePage = (req: Request)=>{
+    public static showHomePage = async (req: Request)=>{
       return Viewer.make('home.ejs', {title:'Home Page!'})
     }
 
@@ -18,8 +19,13 @@ class MainController {
     }
 
     public static showArticlePage = async (req: Request)=>{ 
-      console.log("REQ DATA : ", req.data)
       const data:any = await article.findById(req.data._id)
+      return Viewer.make('main.ejs', data)
+    }
+
+
+    public static showAllArticlePage = async (req: Request)=>{ 
+      const data = await article.findAll()
       return Viewer.make('main.ejs', data)
     }
 }

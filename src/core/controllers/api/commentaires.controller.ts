@@ -7,6 +7,7 @@ class CommentairesController {
     }
 
     public static async getCommentaire(data: any) { 
+        console.log("TESTTTTT :", data)
         return await commentaire.innerJoin({table: "articles", field: "article_id"}).innerJoin({table: "users", field: "user_id"}).find(data)
     }
 

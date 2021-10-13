@@ -50,6 +50,7 @@ var AbstractModel = /** @class */ (function () {
     function AbstractModel(table, fields) {
         this.fields = [];
         this.selection = [];
+        this.join = [];
         this.table = table;
         this.fields = fields;
         this.query = new Query_1.default(this);
@@ -60,7 +61,7 @@ var AbstractModel = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        queryString = this.query.select(this.selection).from(this.table).toString();
+                        queryString = this.query.join(this.join).select(this.selection).from(this.table).toString();
                         return [4 /*yield*/, this.runQuery(queryString)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -73,7 +74,7 @@ var AbstractModel = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        queryString = this.query.select(this.selection).from(this.table).where(data).toString();
+                        queryString = this.query.join(this.join).select(this.selection).from(this.table).where(data).toString();
                         return [4 /*yield*/, this.runQuery(queryString)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -86,7 +87,7 @@ var AbstractModel = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        queryString = this.query.select(this.selection).from(this.table).where([{ _id: id }]).toString();
+                        queryString = this.query.join(this.join).select(this.selection).from(this.table).where([{ _id: id }]).toString();
                         return [4 /*yield*/, this.runQuery(queryString)];
                     case 1:
                         data = _a.sent();
@@ -141,6 +142,18 @@ var AbstractModel = /** @class */ (function () {
         this.selection = data;
         return this;
     };
+    AbstractModel.prototype.innerJoin = function (data) {
+        this.join.push(Object.assign(data, { inner: true, left: false, right: false }));
+        return this;
+    };
+    AbstractModel.prototype.leftJoin = function (data) {
+        this.join.push(Object.assign(data, { inner: false, left: true, right: false }));
+        return this;
+    };
+    AbstractModel.prototype.rightJoin = function (data) {
+        this.join.push(Object.assign(data, { inner: false, left: false, right: true }));
+        return this;
+    };
     AbstractModel.prototype.excludeFields = function (data) {
         var temp = [];
         this.fields.map(function (item) {
@@ -158,17 +171,20 @@ var AbstractModel = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        this.join = [];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
                         this.resetSelection();
                         return [4 /*yield*/, Database_1.default.query(queryString)];
-                    case 1:
+                    case 2:
                         data = _a.sent();
                         return [2 /*return*/, data];
-                    case 2:
+                    case 3:
                         error_1 = _a.sent();
                         console.log(error_1);
                         return [2 /*return*/, { error: error_1.toString() }];
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

@@ -44,12 +44,22 @@ var Viewer_1 = __importDefault(require("../../views/Viewer"));
 var MainController = /** @class */ (function () {
     function MainController() {
     }
-    MainController.showMainPage = function (req) {
-        return Viewer_1.default.make('main.ejs', { title: 'Main Page' });
-    };
-    MainController.showHomePage = function (req) {
-        return Viewer_1.default.make('home.ejs', { title: 'Home Page!' });
-    };
+    MainController.showMainPage = function (req) { return __awaiter(void 0, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, articles_models_1.article.findAll()];
+                case 1:
+                    data = _a.sent();
+                    return [2 /*return*/, Viewer_1.default.make('main.ejs', data)];
+            }
+        });
+    }); };
+    MainController.showHomePage = function (req) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, Viewer_1.default.make('home.ejs', { title: 'Home Page!' })];
+        });
+    }); };
     MainController.show404Page = function (req) {
         return Viewer_1.default.make('page_404.ejs', { title: 'Page introuvable!' });
     };
@@ -57,9 +67,18 @@ var MainController = /** @class */ (function () {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    console.log("REQ DATA : ", req.data);
-                    return [4 /*yield*/, articles_models_1.article.findById(req.data._id)];
+                case 0: return [4 /*yield*/, articles_models_1.article.findById(req.data._id)];
+                case 1:
+                    data = _a.sent();
+                    return [2 /*return*/, Viewer_1.default.make('main.ejs', data)];
+            }
+        });
+    }); };
+    MainController.showAllArticlePage = function (req) { return __awaiter(void 0, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, articles_models_1.article.findAll()];
                 case 1:
                     data = _a.sent();
                     return [2 /*return*/, Viewer_1.default.make('main.ejs', data)];

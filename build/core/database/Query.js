@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Query = /** @class */ (function () {
     function Query(model) {
         this.fields = [];
+        this._join = "";
         this.conditions = "";
         this.action = "";
         this.isDelete = false;
@@ -43,7 +44,6 @@ var Query = /** @class */ (function () {
         }
         query_part = query_part.replace(/.$/, "");
         var query = "UPDATE " + this.table + " SET" + query_part + this.conditions;
-        console.log("query : ", query);
         this.table = "";
         this.conditions = "";
         return query;
@@ -72,18 +72,19 @@ var Query = /** @class */ (function () {
         return this;
     };
     Query.prototype.and = function (args) {
+        var _this = this;
         var conditions = "";
         var keys = Object.keys(args);
         if (keys && keys.length > 1) {
             keys.map(function (key, index) {
                 if (key && index === 0)
-                    conditions += key + " = " + args[key];
+                    conditions += _this.table + "." + key + " = " + args[key];
                 if (key && index > 0)
-                    conditions += " AND " + key + " = '" + args[key] + "'";
+                    conditions += " AND " + _this.table + "." + key + " = '" + args[key] + "'";
             });
         }
         else {
-            conditions += keys[0] + " = '" + args[keys[0]] + "'";
+            conditions += this.table + "." + keys[0] + " = '" + args[keys[0]] + "'";
         }
         return conditions;
     };
@@ -97,15 +98,31 @@ var Query = /** @class */ (function () {
         }
         return this;
     };
+    Query.prototype.join = function (data) {
+        var _this = this;
+        data.map(function (item) {
+            if (item.inner) {
+                _this._join += " INNER JOIN " + item.table + " ON " + item.table + "._id = " + _this.table + "." + item.field + " ";
+            }
+            else if (item.left) {
+                _this._join += " LEFT JOIN " + item.table + " ON " + item.table + "._id = " + _this.table + "." + item.field + " ";
+            }
+            else if (item.right) {
+                _this._join += " RIGHT JOIN " + item.table + " ON " + item.table + "._id = " + _this.table + "." + item.field + " ";
+            }
+        });
+        return this;
+    };
     Query.prototype.toString = function () {
         var liestFields = this.isDelete ? '' : ((this.fieldToSelect.length > 0) ? this.fieldToSelect.join(', ') : '*');
         var query = this.action + liestFields
             + ' FROM ' + this.table
+            + this._join
             + this.conditions;
         this.fieldToSelect = [];
-        this.table = "";
         this.action = "";
         this.isDelete = false;
+        this._join = "";
         this.conditions = "";
         return query;
     };

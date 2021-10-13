@@ -40,11 +40,23 @@ var commentaires_model_1 = require("../../models/commentaires.model");
 var CommentairesController = /** @class */ (function () {
     function CommentairesController() {
     }
-    CommentairesController.getCommentaire = function (id) {
+    CommentairesController.getCommentaireById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, commentaires_model_1.commentaire.selectFields(['_id', 'user_id', 'article_id', 'content']).findById(id)];
+                    case 0: return [4 /*yield*/, commentaires_model_1.commentaire.innerJoin({ table: "articles", field: "article_id" }).innerJoin({ table: "users", field: "user_id" }).findById(id)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    CommentairesController.getCommentaire = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("TESTTTTT :", data);
+                        return [4 /*yield*/, commentaires_model_1.commentaire.innerJoin({ table: "articles", field: "article_id" }).innerJoin({ table: "users", field: "user_id" }).find(data)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -54,7 +66,7 @@ var CommentairesController = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, commentaires_model_1.commentaire.findAll()];
+                    case 0: return [4 /*yield*/, commentaires_model_1.commentaire.innerJoin({ table: "articles", field: "article_id" }).innerJoin({ table: "users", field: "user_id" }).findAll()];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

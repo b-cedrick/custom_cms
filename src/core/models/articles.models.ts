@@ -13,6 +13,7 @@ class Articles extends AbstractModel implements ModelInterface {
 
 export const article = new Articles('articles', [
     {field: '_id', type:TypeFields.Number},
+    {field: 'user_id', type:TypeFields.Number},
     {field: 'title', type:TypeFields.String},
     {field: 'content', type:TypeFields.String}
 ])

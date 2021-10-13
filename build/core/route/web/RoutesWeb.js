@@ -9,6 +9,7 @@ var RoutesWeb = /** @class */ (function () {
     function RoutesWeb() {
         Router_1.default.get('/', main_controller_1.default.showMainPage);
         Router_1.default.get('/article', main_controller_1.default.showArticlePage);
+        Router_1.default.get('/article/all', main_controller_1.default.showAllArticlePage);
         Router_1.default.get('/home', main_controller_1.default.showHomePage);
         Router_1.default.get('/404', main_controller_1.default.show404Page);
     }
